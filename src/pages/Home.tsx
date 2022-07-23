@@ -2,8 +2,9 @@ import React, { useEffect, useReducer } from 'react';
 import './Home.css';
 import { PostInfoData } from '../App';
 import PostingBoard from '../Components/posting-board';
+import Pagination from '../Components/pagination';
 
-interface homeProps {
+interface HomeProps {
   postData: PostInfoData[];
 }
 
@@ -64,7 +65,7 @@ function reducer(
   }
 }
 
-function Home({ postData }: homeProps): ReactElement {
+function Home({ postData }: HomeProps): ReactElement {
   const initialState = {
     postInfoList: postData,
     currentPost: null,
@@ -83,6 +84,7 @@ function Home({ postData }: homeProps): ReactElement {
         postInfoList={state.currentPost ?? []}
         postDispatcher={dispatcher}
       />
+      <Pagination length={state.length} postDispatcher={dispatcher} />
     </div>
   );
 }
