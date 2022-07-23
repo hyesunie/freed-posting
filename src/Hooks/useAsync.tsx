@@ -1,20 +1,21 @@
 import { useReducer, useEffect } from 'react';
 
-export interface FetchState {
+export interface FetchState<T> {
   loading: boolean;
-  data: null | string[];
+  data: null | T;
   error: null | Error;
 }
 
-export interface FetchAction {
+export interface FetchAction<T> {
   type: string;
-  data?: string[];
+  data?: T;
   error?: Error;
 }
 
-export type FetchDataInfo = FetchState | (() => Promise<any>);
-
-function reducer(state: FetchState, action: FetchAction): FetchState {
+function reducer<T>(
+  state: FetchState<T>,
+  action: FetchAction<T>
+): FetchState<T> {
   switch (action.type) {
     case 'LOADING':
       return {
@@ -43,12 +44,14 @@ function reducer(state: FetchState, action: FetchAction): FetchState {
   }
 }
 
-function useAsync(callback: () => Promise<any>): FetchDataInfo[] {
+function useAsync<T>(callback: () => Promise<any>): FetchState<T> {
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
     error: null,
   });
+
+  const state2 = state as FetchState<T>;
 
   const fetchData = async (): Promise<any> => {
     dispatch({ type: 'LOADING' });
@@ -67,7 +70,7 @@ function useAsync(callback: () => Promise<any>): FetchDataInfo[] {
     fetchData();
   }, []);
 
-  return [state, fetchData];
+  return state2;
 }
 
 export default useAsync;
