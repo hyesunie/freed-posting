@@ -1,5 +1,7 @@
-const readPostInfo = (): Promise<Response> => {
-  return fetch('https://jsonplaceholder.typicode.com/albums', {
+import { URL } from './const';
+
+export const readPostInfo = (): Promise<Response> => {
+  return fetch(URL.API_POST_INFO, {
     method: 'GET',
   });
 };
