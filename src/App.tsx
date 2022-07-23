@@ -15,10 +15,16 @@ function App(): ReactElement {
   const state = useAsync<PostInfoData[]>(readPostInfo);
 
   return (
-    <>
+    <div>
       <Reset />
-      <Home postData={state.data ?? []} />
-    </>
+      <div>
+        {state.loading ? (
+          <p>로딩중...</p>
+        ) : (
+          <Home postData={state.data ?? []} />
+        )}
+      </div>
+    </div>
   );
 }
 
