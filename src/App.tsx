@@ -17,7 +17,7 @@ function App(): ReactElement {
   return (
     <div>
       <Reset />
-      <div>
+      <div className='app'>
         {state.loading ? (
           <p>로딩중...</p>
         ) : (

@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
+import './Home.css';
 import { PostInfoData } from '../App';
+import PostingBoard from '../Components/posting-board';
 
 interface homeProps {
   postData: PostInfoData[];
@@ -75,7 +77,14 @@ function Home({ postData }: homeProps): ReactElement {
     dispatcher({ next: 'init', nextData: null });
   }, []);
 
-  return <div />;
+  return (
+    <div className="home-wrapper">
+      <PostingBoard
+        postInfoList={state.currentPost ?? []}
+        postDispatcher={dispatcher}
+      />
+    </div>
+  );
 }
 
 export default Home;
