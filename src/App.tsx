@@ -13,11 +13,10 @@ export interface PostInfoData {
 
 function App(): ReactElement {
   const state = useAsync<PostInfoData[]>(readPostInfo);
-
   return (
     <div>
       <Reset />
-      <div className='app'>
+      <div className="app">
         {state.loading ? (
           <p>로딩중...</p>
         ) : (
