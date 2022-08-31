@@ -1,7 +1,7 @@
 .home-wrapper {
   display: flex;
-  width: 60%;
+  width: 80%;
   height: 100%;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
