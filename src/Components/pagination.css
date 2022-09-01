@@ -1,0 +1,19 @@
+.pagination {
+  font-weight: 1rem;
+  margin-top: 1em;
+  width: 50%;
+}
+.pagination__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pagination__element {
+  font-weight: 600;
+  padding: 0.3em;
+}
+
+.select {
+  background-color: rgba(255, 252, 65, 0.6);
+}
