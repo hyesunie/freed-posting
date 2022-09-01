@@ -1,33 +1,54 @@
 import React, { useCallback } from 'react';
 import { PostAction } from '../pages/Home';
+import './pagination.css';
 
-interface PaginationProps {
+interface PaginationInitState {
   length: number;
-  postDispatcher: (param: PostAction) => void;
+  selectedIdx: number;
+  movePageDispatcher: (postAction: PostAction) => void;
+}
+interface PaginationProps {
+  initState: PaginationInitState;
 }
 
-function Pagination({ length, postDispatcher }: PaginationProps): ReactElement {
+function Pagination({ initState }: PaginationProps): ReactElement {
+  const { length, selectedIdx, movePageDispatcher } = initState;
   const pageCount = length / 5;
 
   const renderPageNumber = (): JSX.Element[] => {
     const pageNumberList = [];
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const handlePageNumber = useCallback(
-      (page: number) => {
-        return postDispatcher({ next: 'page', nextData: page });
-      },
-      [length]
-    );
 
+    const onClickPage = (
+      e:
+        | React.MouseEvent<HTMLLIElement, MouseEvent>
+        | React.KeyboardEvent<HTMLLIElement>
+    ): void => {
+      const $target = e.target as HTMLLIElement;
+      movePageDispatcher({ next: 'page', nextData: $target.innerText });
+    };
     // eslint-disable-next-line no-plusplus
     for (let i = 1; i < pageCount + 1; i++) {
-      pageNumberList.push(<li>{i}</li>);
+      pageNumberList.push(
+        <li
+          key={String(i)}
+          className="pagination__element"
+          role="presentation"
+          onClick={onClickPage}
+          onKeyDown={onClickPage}
+        >
+          {i}
+        </li>
+      );
     }
 
     return pageNumberList;
   };
 
-  return <ul>{renderPageNumber()}</ul>;
+  return (
+    <section className="pagination">
+      <ul className="pagination__list">{renderPageNumber()}</ul>
+    </section>
+  );
 }
 
 export default Pagination;

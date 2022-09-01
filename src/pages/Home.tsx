@@ -84,7 +84,13 @@ function Home({ postData }: HomeProps): ReactElement {
         postInfoList={state.currentPost ?? []}
         postDispatcher={dispatcher}
       />
-      <Pagination length={state.length} postDispatcher={dispatcher} />
+      <Pagination
+        initState={{
+          length: state.length,
+          selectedIdx: 1,
+          movePageDispatcher: dispatcher,
+        }}
+      />
     </div>
   );
 }
