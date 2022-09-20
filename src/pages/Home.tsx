@@ -1,11 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
 import './Home.css';
-import { PostInfoData } from '../App';
+import { useLoaderData } from 'react-router-dom';
 import PostingBoard from '../Components/posting-board';
 import Pagination from '../Components/pagination';
+import { readPostInfo } from '../api';
 
-interface HomeProps {
-  postData: PostInfoData[];
+export interface PostInfoData {
+  userId: number;
+  id: number;
+  title: string;
 }
 
 export interface PostState {
@@ -18,6 +21,11 @@ export interface PostAction {
   next: 'search' | 'page' | 'init';
   nextData: string | number | null;
 }
+
+export const loader = async (): Promise<PostInfoData[]> => {
+  const postInfo = await readPostInfo<PostInfoData[]>();
+  return postInfo;
+};
 
 function reducer(
   { postInfoList, currentPost, length }: PostState,
@@ -65,7 +73,9 @@ function reducer(
   }
 }
 
-function Home({ postData }: HomeProps): ReactElement {
+function Home(): ReactElement {
+  const postData = useLoaderData() as PostInfoData[];
+
   const initialState = {
     postInfoList: postData,
     currentPost: null,
