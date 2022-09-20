@@ -3,13 +3,7 @@ import './Home.css';
 import { useLoaderData } from 'react-router-dom';
 import PostingBoard from '../Components/posting-board';
 import Pagination from '../Components/pagination';
-import { readPostInfo } from '../api';
-
-export interface PostInfoData {
-  userId: number;
-  id: number;
-  title: string;
-}
+import { PostInfoData } from './root';
 
 export interface PostState {
   postInfoList: PostInfoData[];
@@ -21,11 +15,6 @@ export interface PostAction {
   next: 'search' | 'page' | 'init';
   nextData: string | number | null;
 }
-
-export const loader = async (): Promise<PostInfoData[]> => {
-  const postInfo = await readPostInfo<PostInfoData[]>();
-  return postInfo;
-};
 
 function reducer(
   { postInfoList, currentPost, length }: PostState,

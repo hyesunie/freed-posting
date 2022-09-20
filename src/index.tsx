@@ -2,15 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
-import Home, { loader as homeLoader } from './pages/Home';
+import Home from './pages/Home';
 import ErrorPage from './pages/error-page';
+import Root, { loader as rootLoader } from './pages/root';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
     errorElement: <ErrorPage />,
-    loader: homeLoader,
+    loader: rootLoader,
+    children: [
+      {
+        path: `page/:pageId`,
+        element: <Home />,
+      },
+    ],
   },
 ]);
 
