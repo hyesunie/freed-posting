@@ -1,6 +1,5 @@
 import React from 'react';
-import { PostInfoData } from '../App';
-import { PostAction } from '../pages/Home';
+import { PostInfoData, PostAction } from '../pages/Home';
 import Post from './post';
 import './posting-board.css';
 
