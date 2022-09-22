@@ -16,6 +16,14 @@ export interface PostAction {
   nextData: string | number | null;
 }
 
+export const loader = (): PostInfoData[] => {
+  const postInfoString = localStorage.getItem('postInfo');
+  if (!postInfoString) throw Error('불러올 포스팅이 없습니다.');
+
+  const postInfoList = JSON.parse(postInfoString);
+  return postInfoList;
+};
+
 function reducer(
   { postInfoList, currentPost, length }: PostState,
   action: PostAction
