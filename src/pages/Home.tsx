@@ -1,12 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import './Home.css';
-import { PostInfoData } from '../App';
+import { useLoaderData } from 'react-router-dom';
 import PostingBoard from '../Components/posting-board';
 import Pagination from '../Components/pagination';
-
-interface HomeProps {
-  postData: PostInfoData[];
-}
+import { PostInfoData } from './root';
 
 export interface PostState {
   postInfoList: PostInfoData[];
@@ -18,6 +15,14 @@ export interface PostAction {
   next: 'search' | 'page' | 'init';
   nextData: string | number | null;
 }
+
+export const loader = (): PostInfoData[] => {
+  const postInfoString = localStorage.getItem('postInfo');
+  if (!postInfoString) throw Error('불러올 포스팅이 없습니다.');
+
+  const postInfoList = JSON.parse(postInfoString);
+  return postInfoList;
+};
 
 function reducer(
   { postInfoList, currentPost, length }: PostState,
@@ -65,7 +70,9 @@ function reducer(
   }
 }
 
-function Home({ postData }: HomeProps): ReactElement {
+function Home(): ReactElement {
+  const postData = useLoaderData() as PostInfoData[];
+
   const initialState = {
     postInfoList: postData,
     currentPost: null,
