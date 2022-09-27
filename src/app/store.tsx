@@ -16,7 +16,7 @@ type PostsAction =
   | { type: 'add'; post: PostInfo }
   | { type: 'delete'; id: string };
 
-type PostsDispatch = Dispatch<PostsAction>;
+export type PostsDispatch = Dispatch<PostsAction>;
 const PostStateContext = createContext<PostInfo[] | null>(null);
 const PostsDispatchContext = createContext<PostsDispatch>(() => null);
 

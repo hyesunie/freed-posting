@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
-import { PostAction } from '../pages/Home';
+import React from 'react';
+import { PostPageAction } from '../pages/Home';
 import './pagination.css';
 
 interface PaginationInitState {
   length: number;
   selectedIdx: number;
-  movePageDispatcher: (postAction: PostAction) => void;
+  movePageDispatcher: (postAction: PostPageAction) => void;
 }
 interface PaginationProps {
   initState: PaginationInitState;
